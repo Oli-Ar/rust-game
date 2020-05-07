@@ -1,10 +1,13 @@
 extern crate piston_window;
 extern crate find_folder;
 
+use std::sync::mpsc::{Sender, Receiver};
 use piston_window::*;
 use crate::structs::Cell;
+use crate::dice::roll_dice;
 
-pub fn render_board(cells: Vec<Cell>) {
+pub fn render_board(cells: Vec<Cell> /*, receiver: Receiver<T>, dice_sender: Sender<T> */) {
+
   // Opens a 512x512 pixel window called game
   let mut window: PistonWindow =
       WindowSettings::new("Game", [512; 2])
@@ -62,6 +65,9 @@ pub fn render_board(cells: Vec<Cell>) {
         text_to_render.draw(&sqr_num, &mut glyphs, &c.draw_state, transform, g).unwrap();
       };
       glyphs.factory.encoder.flush(device);
+
+      let rolls = roll_dice();
+      println!("{:?}", rolls);
     });
   };
 }
