@@ -1,17 +1,21 @@
+//TODO: Clean up imports to only import exactly what needed
 extern crate piston_window;
 extern crate find_folder;
+mod game_board;
+mod player_amnt_input;
 
-use std::sync::mpsc::{Sender, Receiver};
+use game_board::render_board;
+use player_amnt_input::get_input;
 use piston_window::*;
-use crate::structs::Cell;
-use crate::dice::roll_dice;
+use crate::structs::{Cell, Game};
 
-pub fn render_board(cells: Vec<Cell> /*, receiver: Receiver<T>, dice_sender: Sender<T> */) {
-
+pub fn render(mut game: Game, cells: Vec<Cell>) {
   // Opens a 512x512 pixel window called game
   let mut window: PistonWindow =
       WindowSettings::new("Game", [512; 2])
           .build().unwrap();
+
+  //TODO: Find a better way to store data to draw shapes and text
 
   // Fetches the font for the number of squares to be written in
   let assets = find_folder::Search::ParentsThenKids(3, 3)
@@ -37,37 +41,19 @@ pub fn render_board(cells: Vec<Cell> /*, receiver: Receiver<T>, dice_sender: Sen
     font_size: 40,
     round: true,
   };
+  let small_text = Text {
+    font_size: 20,
+    ..text_to_render
+  };
 
   // While events can take place perform actions to window
-    while let Some(e) = window.next() {
-    window.draw_2d(&e, |c, g, device| {
-
-      // Gets the size of the window to be used in resizing the game board
-      let window_size = c.get_view_size();
-
-      // Draw each cell in cells as a grid
-      for i in &cells {
-        // Defines the size of the rectangle as 1/7th the size of the window to allow 7*7 grid
-        let rect_size = [
-          i.x as f64*(window_size[0] / 7.0), // Location on x axis of current cell
-          i.y as f64*(window_size[1] / 7.0), // Location on y axis of cell
-          (window_size[0] / 7.0), // Size of cell on x axis
-          (window_size[1] / 7.0)]; // Size of cell on y axis
-        rect.draw(rect_size, &c.draw_state, c.transform, g);
-
-        // Converts the int of the current square to a string which can be coerced into str
-        let sqr_num = i.cell_number.to_string();
-        // Defines the transformation for the position of the number
-        let transform = c.transform.trans((i.x as f64 + 0.3)*window_size[0]/7.0,
-                                          window_size[1]/7.0/1.5+(i.y as f64+0.1)*window_size[1]/7.0);
-
-        // Renders and displays the number of the square
-        text_to_render.draw(&sqr_num, &mut glyphs, &c.draw_state, transform, g).unwrap();
-      };
-      glyphs.factory.encoder.flush(device);
-
-      let rolls = roll_dice();
-      println!("{:?}", rolls);
-    });
+  while let Some(e) = window.next() {
+    // Gets the size of the window to be used in resizing the game board
+    let window_size = window.size();
+    if game.active == false {
+      get_input(&mut window, e, window_size, &mut game, text_to_render, small_text, &mut glyphs);
+    } else {
+      render_board(&mut window, e, &cells, window_size, &mut glyphs, rect, text_to_render);
+    }
   };
 }
