@@ -21,7 +21,7 @@ pub fn quick_sort (mut unsorted_vec: &mut Vec<Cell>, low: i64, high: i64) {
 
 fn partition (vec_to_sort: &mut Vec<Cell>, low: i64, high: i64) -> i64 {
   // Defines pivot as the last value of the vector
-  let pivot: i16 = vec_to_sort[high as usize].cell_number;
+  let pivot: i32 = vec_to_sort[high as usize].cell_number;
   // Defines the index where the current value lower than the pivot is
   let mut low_index: i64 = low-1;
   // Iterates through the given range pushing all values lower than the pivot to the next position low_index
