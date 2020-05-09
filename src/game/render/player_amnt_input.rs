@@ -1,7 +1,7 @@
-//TODO: Clean up imports to only import exactly what needed
 extern crate piston_window;
-use piston_window::*;
-use crate::structs::Game;
+
+use piston_window::{ PistonWindow, ButtonState, ButtonEvent, Text, Transformed, Glyphs, Size, Event, clear };
+use crate::game::Game;
 
 pub fn get_input(window: &mut PistonWindow,
                  e: Event,

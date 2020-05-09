@@ -1,20 +1,20 @@
-//TODO: Clean up imports to only import exactly what needed
 extern crate piston_window;
 
-use piston_window::*;
+use piston_window::{ PistonWindow, Rectangle, Text, Transformed, Glyphs, Size, Event, Context, G2d };
 use crate::structs::Cell;
+use crate::game::Game;
 
 pub fn render_board(window: &mut PistonWindow,
-                    e: Event,
-                    cells: &Vec<Cell>,
+                    e: &Event,
+                    game: &Game,
                     window_size: Size,
                     glyphs: &mut Glyphs,
                     rect: Rectangle,
                     text_to_render: Text,
 ) {
-  window.draw_2d(&e, |c, g, device| {
+  window.draw_2d(e, |c, g, device| {
     // Draw each cell in cells as a grid
-    for i in &*cells {
+    for i in &game.cells {
       // Separate functions to render different sections of board
       draw_cells(rect, window_size, i, c, g);
       draw_nums(text_to_render, window_size, i, glyphs, c, g);
@@ -30,6 +30,7 @@ fn draw_cells(rect: Rectangle, window_size: Size, i: &Cell, c: Context, g: &mut 
     i.y as f64*(window_size.height / 7.0), // Location on y axis of cell
     (window_size.width / 7.0), // Size of cell on x axis
     (window_size.height / 7.0)]; // Size of cell on y axis
+
   rect.draw(rect_size, &c.draw_state, c.transform, g);
 }
 
