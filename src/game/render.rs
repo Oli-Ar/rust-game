@@ -30,7 +30,8 @@ impl Game {
     let border = rectangle::Border{ color: BLACK, radius: 1.0 };
     let rect = Rectangle{ color: WHITE, shape: rectangle::Shape::Square, border: Some(border) };
     let text_to_render = Text{ color: BLACK, font_size: 40, round: true };
-    let small_text = Text { font_size: 20, ..text_to_render };
+    let small_text = Text{ font_size: 20, ..text_to_render };
+    let no_txt = Text{ font_size: 220/self.board_size as u32, ..text_to_render };
 
     // While events can take place perform actions to window
     while let Some(e) = window.next() {
@@ -39,7 +40,7 @@ impl Game {
       if self.active == false {
         get_input(&mut window, e, window_size, self, text_to_render, small_text, &mut glyphs);
       } else {
-        render_board(&mut window, &e, self, window_size, &mut glyphs, rect, text_to_render);
+        render_board(&mut window, &e, self, window_size, &mut glyphs, rect, no_txt);
         render_players(self, &mut window, &e, window_size);
       }
     };
