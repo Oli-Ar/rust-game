@@ -23,7 +23,7 @@ pub fn render_players(game: &mut Game, window: &mut PistonWindow, e: &Event, win
       if let Some(cell) = &player.cell {
 
         // Using data from the cell the player is on the size and position of counter is defined
-        let counter_size = (window_size.width+window_size.height)/2.0/42.0;
+        let counter_size = (window_size.width+window_size.height)/2.0/game.board_size*6;
         let cell_x = cell.x as f64*(window_size.width / 7.0);
         let cell_y = cell.y as f64*(window_size.height / 7.0);
 
