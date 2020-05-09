@@ -6,7 +6,7 @@ use game::Game;
 
 fn main() {
   // Initialises the game by creating a game variable using the game struct
-  let mut game = Game::new();
+  let mut game = Game::new(7);
   game.quick_sort(0, (game.cells.len()-1) as i64);
 
   // Creates new vec to store opened threads
