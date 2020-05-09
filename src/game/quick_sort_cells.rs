@@ -1,8 +1,10 @@
 use crate::structs::Cell;
+use crate::game::Game;
 
-// Function to perform quick sort - takes the vector to sort and the high and low index
-pub fn quick_sort (mut unsorted_vec: &mut Vec<Cell>, low: i64, high: i64) {
-  /* Checks that low isn't equal to high when called if the condition isn't matched then the sort
+impl Game {
+  // Function to perform quick sort - takes the vector to sort and the high and low index
+  pub fn quick_sort(&mut self, low: i64, high: i64) {
+    /* Checks that low isn't equal to high when called if the condition isn't matched then the sort
   is complete. If the sort isn't complete, first the data is partitioned, this is done through the
   partition function. This function takes in the vector and the low and high index, and first
   selects the last value of the vector as the pivot iterates through the array and moves any values
@@ -12,10 +14,11 @@ pub fn quick_sort (mut unsorted_vec: &mut Vec<Cell>, low: i64, high: i64) {
   is split - the index of the partition. This value is then used by the quick sort function, through
   recursion, to sort the values of the vector above the pivot and then below the pivot, these will
   recur until the list is sorted. */
-  if low < high {
-    let partition_index: i64 = partition(&mut unsorted_vec, low, high);
-    quick_sort(unsorted_vec, low, partition_index - 1);
-    quick_sort(unsorted_vec, partition_index + 1, high);
+    if low < high {
+      let partition_index: i64 = partition(&mut self.cells, low, high);
+      self.quick_sort(low, partition_index - 1);
+      self.quick_sort(partition_index + 1, high);
+    }
   }
 }
 
