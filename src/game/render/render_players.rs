@@ -23,9 +23,9 @@ pub fn render_players(game: &mut Game, window: &mut PistonWindow, e: &Event, win
       if let Some(cell) = &player.cell {
 
         // Using data from the cell the player is on the size and position of counter is defined
-        let counter_size = (window_size.width+window_size.height)/2.0/game.board_size*6;
-        let cell_x = cell.x as f64*(window_size.width / 7.0);
-        let cell_y = cell.y as f64*(window_size.height / 7.0);
+        let counter_size = (window_size.width+window_size.height)/2.0/(game.board_size*6) as f64;
+        let cell_x = cell.x as f64*(window_size.width / game.board_size as f64);
+        let cell_y = cell.y as f64*(window_size.height / game.board_size as f64);
 
         // Match statement to check player number and then draw the counter in a certain colour
         // Player 1 is drawn top left, 2: top right, 3: bottom left, 4: bottom right
