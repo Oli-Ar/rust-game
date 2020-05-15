@@ -27,7 +27,7 @@ impl Game {
   }
 }
 
-fn roll_dice(player: &mut Player) -> Vec<i32> {
+fn roll_dice() -> Vec<i32> {
   let mut return_vec: Vec<i32> = Vec::with_capacity(3);
   let rng = rand::thread_rng();
   let roll_one: i32 = rng.clone().gen_range(1, 7);
