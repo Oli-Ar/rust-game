@@ -8,17 +8,18 @@ pub fn render_board(window: &mut PistonWindow,
                     window_size: Size,
                     glyphs: &mut Glyphs,
                     rect: Rectangle,
-                    no_tex: Text,
+                    mut text: Text,
 ) {
   window.draw_2d(e, |c, g, device| {
     // Sets background to white
     clear([1.0, 1.0, 1.0, 1.0], g);
+    text.font_size = 220/game.board_size as u32;
 
     // Draw each cell in cells as a grid
     for i in &game.cells {
       // Separate functions to render different sections of board
       draw_cells(game, rect, window_size, i, c, g);
-      draw_nums(game, no_tex, window_size, i, glyphs, c, g);
+      draw_nums(game, text, window_size, i, glyphs, c, g);
     };
     glyphs.factory.encoder.flush(device);
   });
