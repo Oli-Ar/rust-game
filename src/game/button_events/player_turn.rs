@@ -7,7 +7,7 @@ impl Game {
     let mut player_vec: Vec<Player> = self.players.clone().unwrap();
     let player: &mut Player = &mut player_vec[(player_num-1) as usize];
     let old_score: i32 = player.score;
-    let roll: Vec<i32> = roll_dice(player);
+    let roll: Vec<i32> = roll_dice();
     player.score += roll[2];
     let new_score: i32;
     if player.score > 0 && player.score <= self.board_size*self.board_size {
