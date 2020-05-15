@@ -39,6 +39,6 @@ fn roll_dice(player: &mut Player) -> Vec<i32> {
   } else {
     roll_total = roll_one + roll_two;
   };
-  if (player.score + roll_total) < 0 { return_vec.push(0) } else { return_vec.push(roll_total) };
-  return return_vec
+  return_vec.push(roll_total);
+  return return_vec;
 }
