@@ -1,5 +1,5 @@
 mod render;
-mod change_state;
+mod button_events;
 mod gen_cells_vec;
 mod quick_sort_cells;
 
@@ -14,6 +14,7 @@ pub struct Game {
   pub active: bool, // Whether the game has started
   pub player_count: Option<i32>, // Amount of players - none if game not started
   pub players: Option<Vec<Player>>, // The players playing - none if game not started
+  pub top_player: Option<Player>, // The current leader
 }
 
 impl Game {
@@ -24,7 +25,8 @@ impl Game {
       board_size,
       active: false,
       player_count: None,
-      players: None
+      players: None,
+      top_player: None,
     }
   }
 }
