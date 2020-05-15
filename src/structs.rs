@@ -11,5 +11,16 @@ pub struct Cell {
 pub struct Player {
   pub number: i32, // The players number between 1 and 4
   pub score: i32, // The score and therefore cell of the player
-  pub cell: Option<Cell> // THe cell the player is on, none at start
+  pub cell: Option<Cell>, // THe cell the player is on, none at start
+  pub roll: Option<RollData>
+}
+
+#[derive(Debug, Clone)]
+// Data used for player turns
+pub struct RollData {
+  pub roll_one: i32,
+  pub roll_two: i32,
+  pub roll_total: i32,
+  pub old_score: i32,
+  pub new_score: i32
 }
