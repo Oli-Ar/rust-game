@@ -21,7 +21,8 @@ impl Game {
       let player = Player {
         number: i,
         score: 0,
-        cell: None
+        cell: None,
+        roll: None
       };
       player_vec.push(player);
     }
