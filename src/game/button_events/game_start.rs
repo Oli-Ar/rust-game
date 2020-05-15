@@ -1,23 +1,9 @@
-extern crate piston_window;
-
-use piston_window::{Button, Key};
-use crate::structs::Player;
 use crate::game::Game;
+use crate::structs::Player;
 
 impl Game {
-  // Method to check how many players in game based on user input
-  pub fn pressed(&mut self, btn: &Button) {
-    // Match statement to check if the key is a number key in the range 2-4, runs function to config game
-    match btn {
-      &Button::Keyboard(Key::D2) => { self.config_game(2) },
-      &Button::Keyboard(Key::D3) => { self.config_game(3) },
-      &Button::Keyboard(Key::D4) => { self.config_game(4) },
-      _ => {}
-    }
-  }
-
   // Changes configs of game when player amount is picked
-  fn config_game(&mut self, player_number: i32) {
+  pub fn config_game(&mut self, player_number: i32) {
     // Sets player count and changes game to active
     self.player_count = Some(player_number);
     self.active = true;
@@ -39,6 +25,9 @@ impl Game {
       };
       player_vec.push(player);
     }
+
+    // Sets the high score to first player, all have score of 0
+    self.top_player = Some(player_vec[0].clone());
     // Updates players vector to Some containing the vector of players
     self.players = Some(player_vec);
   }
