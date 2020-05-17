@@ -7,7 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-piston_window = "*"
-find_folder = "*"
-rand = "*"
-gfx_device_gl = "*"
+piston_window = "0.108.*"
+find_folder = "0.3.*"
+rand = "0.7.*"
+rand_distr = "0.2.*"
+gfx_device_gl = "0.16.*"
