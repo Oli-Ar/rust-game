@@ -1,7 +1,6 @@
 mod render;
 mod button_events;
 mod gen_cells_vec;
-mod quick_sort_cells;
 
 use crate::structs::{ Cell, Player };
 
