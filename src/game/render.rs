@@ -1,4 +1,4 @@
-use piston_window::{ PistonWindow, WindowSettings, Window, Rectangle, rectangle, Text };
+use piston_window::{PistonWindow, WindowSettings, Window, Rectangle, rectangle, Text };
 use crate::game::Game;
 
 mod game_board;
@@ -20,12 +20,12 @@ const WHITE: [f32; 4] = [1.0, 1.0, 1.0, 1.0];
 impl Game {
   pub fn render(&mut self) {
     // Opens a 512x512 pixel window called game
-    let mut window: PistonWindow = WindowSettings::new("Game", [612; 2]).build().unwrap();
+    let mut window: PistonWindow = WindowSettings::new("Game", [512, 612]).build().unwrap();
 
     // Fetches the font for the number of squares to be written in
-    let assets = find_folder::Search::ParentsThenKids(3, 3)
+    let font_assets = find_folder::Search::ParentsThenKids(3, 3)
         .for_folder("assets").unwrap();
-    let mut glyphs = window.load_font(assets.join("Mono.ttf")).unwrap();
+    let mut glyphs = window.load_font(font_assets.join("Mono.ttf")).unwrap();
 
     // Defines the base shapes and text to be rendered
     let border = rectangle::Border { color: BLACK, radius: 1.0 };
