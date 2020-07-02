@@ -1,3 +1,4 @@
+mod gen_obstacles;
 mod render;
 mod button_events;
 mod gen_cells_vec;
