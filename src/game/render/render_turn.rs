@@ -33,7 +33,7 @@ pub fn render_turn(game: & mut Game,
       let roll_data = player.roll.as_ref().unwrap();
       text.font_size = 10;
       let bottom_text: &str = &format!(
-        "Player {} rolled ({}, {}), total: {}, and moved from square {} to square {}",
+        "Player {} rolled [{}, {}], total: {}, and moved from square {} to square {}",
         player.number,
         roll_data.roll_one, roll_data.roll_two,
         roll_data.roll_total,

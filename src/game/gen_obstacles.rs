@@ -1,7 +1,7 @@
 use rand_distr::{ Normal, Distribution };
 use rand::{ thread_rng, Rng };
 
-pub fn gen_obstacles(x: i32) -> Vec<Vec<i32>> {
+pub fn gen_obstacles(x: &i32) -> Vec<Vec<i32>> {
   let mut rng = thread_rng();
   // Generates a normal for generating arrows with a standard deviation of 15
   let normal = Normal::new(0.0, 15.0).unwrap();
