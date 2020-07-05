@@ -7,7 +7,6 @@ use crate::structs::{ Cell, Player };
 
 #[derive(Debug)]
 // The data to be stored about the game
-// TODO: Add obstacles
 pub struct Game {
   pub cells: Vec<Cell>, // The cells in the game
   pub board_size: i32, // Length of one side of the board
@@ -21,7 +20,7 @@ impl Game {
   // Static method to create a Game variable with default values
   pub fn new(board_size: i32) -> Self {
     Self {
-      cells: self::gen_cells_vec::make_cells_vec(board_size),
+      cells: self::gen_cells_vec::make_cells_vec(&board_size),
       board_size,
       active: false,
       player_count: None,
