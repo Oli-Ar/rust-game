@@ -14,7 +14,7 @@ const COUNTER: Ellipse = Ellipse {
   resolution: 160
 };
 
-pub fn render_players(game: &mut Game, window: &mut PistonWindow, e: &Event, window_size: Size) {
+pub fn render_players(game: &mut Game, window: &mut PistonWindow, window_size: Size, e: &Event) {
   window.draw_2d(e, |c, mut g, _device| {
     // Loops through all players and checks if and what cell they are on
     for player in game.players.as_ref().unwrap() {

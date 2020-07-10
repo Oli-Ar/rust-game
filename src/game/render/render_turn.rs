@@ -4,8 +4,8 @@ use crate::game::Game;
 pub fn render_turn(game: & mut Game,
                    window: &mut PistonWindow,
                    window_size: Size,
-                   glyphs: &mut Glyphs,
                    e: &Event,
+                   glyphs: &mut Glyphs,
                    mut text: Text,
                    turn: i32
 ) -> i32 {

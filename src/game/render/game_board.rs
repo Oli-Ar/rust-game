@@ -2,13 +2,13 @@ use piston_window::{ PistonWindow, Rectangle, Text, Transformed, Glyphs, Size, E
 use crate::structs::Cell;
 use crate::game::Game;
 
-pub fn render_board(window: &mut PistonWindow,
-                    e: &Event,
-                    game: &Game,
+pub fn render_board(game: &Game,
+                    window: &mut PistonWindow,
                     window_size: Size,
-                    glyphs: &mut Glyphs,
+                    e: &Event,
                     rect: Rectangle,
-                    mut text: Text,
+                    glyphs: &mut Glyphs,
+                    mut text: Text
 ) {
   window.draw_2d(e, |c, g, device| {
     // Sets background to white

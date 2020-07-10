@@ -6,12 +6,14 @@ mod player_amnt_input;
 mod render_players;
 mod render_turn;
 mod render_winner;
+mod render_obstacles;
 
 use game_board::render_board;
 use player_amnt_input::get_input;
 use render_players::render_players;
 use render_turn::render_turn;
 use render_winner::render_winner;
+use render_obstacles::render_obstacles;
 
 const BLACK: [f32; 4] = [0.0, 0.0, 0.0, 1.0];
 const WHITE: [f32; 4] = [1.0, 1.0, 1.0, 1.0];
@@ -32,6 +34,20 @@ impl Game {
     let rect = Rectangle { color: WHITE, shape: rectangle::Shape::Square, border: Some(border) };
     let text_to_render = Text { color: BLACK, font_size: 25, round: true };
 
+    /*
+    Parameter order for render modules:
+    1. Game (self)
+    2. window
+    3. window size
+    4. event
+    5. assets
+      1. shapes
+      2. glyphs
+      3. text
+      4. images
+    6. other
+    */
+
     // While events can take place perform actions to window
     let mut turn: i32 = 1;
     while let Some(e) = window.next() {
@@ -41,13 +57,14 @@ impl Game {
 
       // Checks if game is running
       if self.active == false {
-        get_input(&mut window, e, window_size, self, text_to_render, &mut glyphs);
+        get_input(self, &mut window, window_size, e, &mut glyphs, text_to_render);
       } else if self.active == true && self.top_player.as_ref().unwrap().score < self.board_size*self.board_size {
-        render_board(&mut window, &e, self, window_size, &mut glyphs, rect, text_to_render);
-        render_players(self, &mut window, &e, window_size);
-        turn = render_turn(self, &mut window, window_size, &mut glyphs, &e, text_to_render, turn);
+        render_board(self, &mut window, window_size, &e, rect, &mut glyphs,text_to_render);
+        render_players(self, &mut window, window_size, &e);
+        render_obstacles(&self, &mut window, window_size, &e);
+        turn = render_turn(self, &mut window, window_size, &e, &mut glyphs, text_to_render, turn);
       } else {
-        render_winner(&mut window, e, window_size, self, text_to_render, &mut glyphs);
+        render_winner(self, &mut window, window_size, e,  &mut glyphs, text_to_render);
       }
     };
   }

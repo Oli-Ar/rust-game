@@ -1,12 +1,12 @@
 use piston_window::{ PistonWindow, ButtonState, ButtonEvent, Text, Transformed, Glyphs, Size, Event, clear };
 use crate::game::Game;
 
-pub fn get_input(window: &mut PistonWindow,
-                 e: Event,
+pub fn get_input(game: &mut Game,
+                 window: &mut PistonWindow,
                  window_size: Size,
-                 game: &mut Game,
-                 mut text: Text,
-                 glyphs: &mut Glyphs
+                 e: Event,
+                 glyphs: &mut Glyphs,
+                 mut text: Text
 ) {
   window.draw_2d(&e, |c, g, device| {
     clear([1.0, 1.0, 1.0, 1.0], g); // Creates white background
