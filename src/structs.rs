@@ -4,8 +4,8 @@ use std::fmt;
 // Data to be stored in each cell to correctly render the game
 pub struct Cell {
   pub cell_number: i32, // Number of the cell on 7*7 board (1-49)
-  pub x: i32, // x position on a 7*7 board
-  pub y: i32, // y position on a 7*7 board
+  pub x: i32, // x position ong the game board
+  pub y: i32, // y position on the game board
   pub start: bool, // Whether the obstacle is a start of an obstacle
   pub end: Option<i32> // Number of the cell the obstacle ends on
 }
