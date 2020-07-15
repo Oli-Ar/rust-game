@@ -12,10 +12,10 @@ impl Game {
     // Takes the old score before it is updated with the new roll data
     let old_score: i32 = player.score;
     // Calls on function to roll dice
-    let roll: Vec<i32> = roll_dice();
+    let roll: Vec<i32> = roll_dice(self.game_options.dice_sides);
     // Updates the players position and returns the new score
     let new_score = update_pos(player, roll[2], &self);
-    // Checks if the player landed on an obstacle and returns a vector of those obstacles
+    // Checks if the player landed on an obstacle and returns a vector of those obstacle_images
     let obstacle_data = check_obstacle(player, &self, Vec::new());
     let obstacles = if obstacle_data.len() > 0 { Some(obstacle_data) } else { None };
     // Updates the top player so game ends if player finished
@@ -36,7 +36,7 @@ fn update_pos(player: &mut Player, roll_total: i32, game: &Game) -> i32 {
   player.score = if player.score + roll_total > 0 { player.score + roll_total } else { 0 };
   let new_score: i32;
   // Updates the players cell, if score is 0 the cell is set to none
-  player.cell = if player.score > 0 && player.score <= game.board_size*game.board_size {
+  player.cell = if player.score > 0 && player.score <= game.game_options.board_size*game.game_options.board_size {
     new_score = player.score;
     Some(game.cells[(player.score-1) as usize].clone())
   } else {
@@ -75,13 +75,13 @@ fn check_obstacle(player: &mut Player, game: &Game, mut ob_vec: Vec::<ObstacleDa
   return ob_vec.clone();
 }
 
-fn roll_dice() -> Vec<i32> {
+fn roll_dice(dice_side: i32) -> Vec<i32> {
   // Generates two values between and including 1 and 6 to simulate dice, returned as vec to be
   // stored as roll data
   let mut return_vec: Vec<i32> = Vec::with_capacity(3);
   let rng = thread_rng();
-  let roll_one: i32 = rng.clone().gen_range(1, 7);
-  let roll_two: i32 = rng.clone().gen_range(1, 7);
+  let roll_one: i32 = rng.clone().gen_range(1, dice_side+1);
+  let roll_two: i32 = rng.clone().gen_range(1, dice_side+1);
   return_vec.extend(vec![roll_one, roll_two]);
   let roll_total: i32;
   if roll_one == roll_two {
