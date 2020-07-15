@@ -22,7 +22,10 @@ pub fn render_turn(game: & mut Game,
   window.draw_2d(e, |c, g, _device| {
     // Converts player number to string and formats into a str - defines position of text and draws it
     text.font_size = 14;
-    let top_text: &str = &format!("Player {}'s turn, press space to roll the dice.", turn.to_string());
+    // Fetches the message template from the messages hashmap stored in game struct and
+    // replaces the fields to be replaced - this is done for all the messages
+    let top_text: &str = &*game.messages.get("render_turn_top").unwrap()
+        .replace("{player}", &*turn.to_string());
     let top_transform = c.transform.trans(window_size.width/2.0-227.0, 33.0);
     text.draw(top_text, glyphs, &c.draw_state, top_transform, g).unwrap();
 
@@ -32,26 +35,27 @@ pub fn render_turn(game: & mut Game,
     if player.roll.is_some() {
       let roll_data = player.roll.as_ref().unwrap();
       text.font_size = 10;
-      let bottom_text: &str = &format!(
-        "Player {} rolled [{}, {}], total: {}, and moved from square {} to square {}",
-        player.number,
-        roll_data.roll_one, roll_data.roll_two,
-        roll_data.roll_total,
-        roll_data.old_score, roll_data.new_score
-      );
-      let bottom_transform = c.transform.trans(window_size.width/2.0-234.0, window_size.height+13.0);
+      let bottom_text: &str = &*game.messages.get("render_turn_bottom").unwrap()
+          .replace("{player}", &*player.number.to_string())
+          .replace("{roll_one}", &*roll_data.roll_one.to_string())
+          .replace("{roll_two}", &*roll_data.roll_two.to_string())
+          .replace("{total}", &*roll_data.roll_total.to_string())
+          .replace("{start}", &*roll_data.old_score.to_string())
+          .replace("{end}", &*roll_data.new_score.to_string());
+      let bottom_transform = c.transform.trans(window_size.width/2.0-236.0, window_size.height+13.0);
       text.draw(bottom_text, glyphs, &c.draw_state, bottom_transform, g).unwrap();
 
       // Checks if on the previous roll the player landed on an obstacle
       if roll_data.obstacles.is_some() {
         let obstacles = roll_data.obstacles.clone().unwrap();
-        // For each of the obstacles the player landed on the type, position of the obstacle, and
+        // For each of the obstacle_images the player landed on the type, position of the obstacle, and
         // where it took the player is rendered to the bottom of the screen
         for (i, o) in obstacles.iter().enumerate() {
-          let obstacle_text = &format!(
-            "Square {} was the start of a {} moving player {} to square {}",
-            o.start, o.obstacle.to_string().to_ascii_lowercase(), player.number, o.end
-          );
+          let obstacle_text: &str = &*game.messages.get("render_turn_obstacle").unwrap()
+              .replace("{start}", &*o.start.to_string())
+              .replace("{obstacle}", &*o.obstacle.to_string().to_ascii_lowercase())
+              .replace("{player}", &*player.number.to_string())
+              .replace("{end}", &*o.end.to_string());
           let obstacle_transform = c.transform.trans(window_size.width/2.0-215.0, window_size.height+((2.0+i as f64)*13.0));
           text.draw(obstacle_text, glyphs, &c.draw_state, obstacle_transform, g).unwrap();
         }
