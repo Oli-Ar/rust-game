@@ -21,9 +21,9 @@ pub fn render_players(game: &mut Game, window: &mut PistonWindow, window_size: S
       if let Some(cell) = &player.cell {
 
         // Using data from the cell the player is on the size and position of counter is defined
-        let counter_size = (window_size.width+window_size.height)/2.0/(game.board_size*6) as f64;
-        let cell_x = cell.x as f64*(window_size.width / game.board_size as f64);
-        let cell_y = cell.y as f64*((window_size.height-50.0) / game.board_size as f64)+50.0;
+        let counter_size = (window_size.width+window_size.height)/2.0/(game.game_options.board_size*6) as f64;
+        let cell_x = cell.x as f64*(window_size.width / game.game_options.board_size as f64);
+        let cell_y = cell.y as f64*((window_size.height-50.0) / game.game_options.board_size as f64)+50.0;
 
         // Match statement to check player number and then draw the counter in a certain colour
         // Player 1 is drawn top left, 2: top right, 3: bottom left, 4: bottom right
@@ -39,7 +39,7 @@ pub fn render_players(game: &mut Game, window: &mut PistonWindow, window_size: S
           2 => {
             draw_circle([0.0, 1.0, 1.0, 1.0],
                         counter_size,
-                        cell_x+window_size.width/game.board_size as f64-counter_size-5.0,
+                        cell_x+window_size.width/game.game_options.board_size as f64-counter_size-5.0,
                         cell_y+5.0,
                         c, &mut g
             );
@@ -48,15 +48,15 @@ pub fn render_players(game: &mut Game, window: &mut PistonWindow, window_size: S
             draw_circle([0.0, 0.0, 1.0, 1.0],
                         counter_size,
                         cell_x+5.0,
-                        cell_y+(window_size.height-50.0)/game.board_size as f64-counter_size-5.0,
+                        cell_y+(window_size.height-50.0)/game.game_options.board_size as f64-counter_size-5.0,
                         c, &mut g
             );
           },
           4 => {
             draw_circle([1.0, 1.0, 0.0, 1.0],
                         counter_size,
-                        cell_x+window_size.width/game.board_size as f64-counter_size-5.0,
-                        cell_y+(window_size.height-50.0)/game.board_size as f64-counter_size-5.0,
+                        cell_x+window_size.width/game.game_options.board_size as f64-counter_size-5.0,
+                        cell_y+(window_size.height-50.0)/game.game_options.board_size as f64-counter_size-5.0,
                         c, &mut g
             );
           },
