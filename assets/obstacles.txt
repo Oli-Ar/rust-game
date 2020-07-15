@@ -1,1 +1,1 @@
-// Example 4->16
+// Example 4->16 - One obstacle per line
