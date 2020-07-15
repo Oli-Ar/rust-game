@@ -1,0 +1,11 @@
+// Text for turn information
+render_turn_top: Player {player}'s turn, press space to roll the dice.
+render_turn_bottom: Player {player} rolled [{roll_one}, {roll_two}], total: {total}, and moved from square {start} to square {end}
+render_turn_obstacle: Square {start} was the start of a {obstacle} moving player {player} to square {end}
+
+// Text for player amount prompt
+render_player_prompt_top: How many players?
+render_player_prompt_bottom: Press a number key between 2 and 4
+
+// Winner Text
+render_winner: Player {player} wins!
