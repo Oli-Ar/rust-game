@@ -27,11 +27,11 @@ pub struct RollData {
   pub roll_total: i32, // Value of both rolls - negative if roll one and two are equal
   pub old_score: i32, // The cell the player was on
   pub new_score: i32, // The cell the player moved to
-  pub obstacles: Option<Vec<ObstacleData>> // Any obstacles on the cell the player landed on
+  pub obstacles: Option<Vec<ObstacleData>> // Any obstacle_images on the cell the player landed on
 }
 
 #[derive(Debug, Clone)]
-// Data about obstacles the player used
+// Data about obstacle_images the player used
 pub struct ObstacleData {
   pub obstacle: Obstacle, // The type of obstacle
   pub start: i32, // The start cell of the obstacle
@@ -39,7 +39,7 @@ pub struct ObstacleData {
 }
 
 #[derive(Debug, Clone)]
-// Two possible types of obstacles
+// Two possible types of obstacle_images
 pub enum Obstacle {
   Snake,
   Ladder,
