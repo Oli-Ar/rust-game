@@ -9,16 +9,18 @@ pub fn get_input(game: &mut Game,
                  mut text: Text
 ) {
   window.draw_2d(&e, |c, g, device| {
-    clear([1.0, 1.0, 1.0, 1.0], g); // Creates white background
+    clear([0.47, 0.87, 0.47, 1.0], g); // Creates white background
 
     // Defines the transformations to position the texts
     let top_text = c.transform.trans(window_size.width/2.0-145.0, ((window_size.height+50.0)/2.0)-30.0);
     let bottom_text = c.transform.trans(window_size.width/2.0-169.0, ((window_size.height+50.0)/2.0)+10.0);
 
-    // Draws the text
-    text.draw("How many players?", glyphs, &c.draw_state, top_text, g).unwrap();
+    // Draws the text - fetches the messages from the hashmap of messages stored in game struct
+    text.draw(&*game.messages.get("render_player_prompt_top").unwrap(),
+              glyphs, &c.draw_state, top_text, g).unwrap();
     text.font_size = 14;
-    text.draw("Press a number key between 2 and 4", glyphs, &c.draw_state, bottom_text, g).unwrap();
+    text.draw(&*game.messages.get("render_player_prompt_bottom").unwrap(),
+              glyphs, &c.draw_state, bottom_text, g).unwrap();
     glyphs.factory.encoder.flush(device);
   });
 
