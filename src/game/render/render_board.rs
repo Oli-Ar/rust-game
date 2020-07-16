@@ -60,8 +60,7 @@ fn draw_line(game: &Game, cell: &Cell, window_size: Size, c: Context, g: &mut G2
   let color: [f32; 4];
   let offset: f64;
   if cell.cell_number > game.cells[cell.end.unwrap() as usize].cell_number {
-    //color = [0.95, 0.27, 0.30, 1.0];
-    color = [1.0, 0.0, 0.0, 1.0];
+    color = [0.95, 0.27, 0.30, 1.0];
     offset = -10.0*(7.0_f64/game.game_options.board_size as f64);
   } else {
     color = [0.0, 0.73, 0.89, 1.0];
