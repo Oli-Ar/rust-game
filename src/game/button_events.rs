@@ -17,7 +17,7 @@ impl Game {
   }
 
   pub fn turn_keypress(&mut self, btn: &Button, player_num: i32) -> Option<i32> {
-    return if btn == &Button::Keyboard(Key::Space) {
+    if btn == &Button::Keyboard(Key::Space) {
       self.player_turn(player_num);
       return if player_num == self.player_count.unwrap() {
         Some(1)

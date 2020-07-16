@@ -62,5 +62,5 @@ pub fn render_turn(game: & mut Game,
       }
     }
   });
-  return new_turn;
+  new_turn
 }

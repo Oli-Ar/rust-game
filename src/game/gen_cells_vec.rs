@@ -33,5 +33,5 @@ pub fn make_cells_vec(game_options: &GameOptions) -> Vec<Cell> {
     cells_vec[i.0 as usize].start = true;
     cells_vec[i.0 as usize].end = Some(i.0 + i.1);
   };
-  return cells_vec;
+  cells_vec
 }

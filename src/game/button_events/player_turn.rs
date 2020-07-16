@@ -43,7 +43,7 @@ fn update_pos(player: &mut Player, roll_total: i32, game: &Game) -> i32 {
     new_score = 0;
     None
   };
-  return new_score;
+  new_score
 }
 
 fn check_obstacle(player: &mut Player, game: &Game, mut ob_vec: Vec::<ObstacleData>) -> Vec<ObstacleData> {
@@ -72,7 +72,7 @@ fn check_obstacle(player: &mut Player, game: &Game, mut ob_vec: Vec::<ObstacleDa
     };
   }
   // Returns the vector of obstacle data
-  return ob_vec.clone();
+  ob_vec.clone()
 }
 
 fn roll_dice(dice_side: i32) -> Vec<i32> {
@@ -90,5 +90,5 @@ fn roll_dice(dice_side: i32) -> Vec<i32> {
     roll_total = roll_one + roll_two;
   };
   return_vec.push(roll_total);
-  return return_vec;
+  return_vec
 }
