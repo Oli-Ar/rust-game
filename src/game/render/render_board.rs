@@ -73,23 +73,26 @@ fn draw_line(game: &Game, cell: &Cell, window_size: Size, c: Context, g: &mut G2
     radius: 1.0+(11.0_f64/game.game_options.board_size as f64)*((window_size.width*window_size.height)/315844.0_f64),
     shape: piston_window::line::Shape::Round
   };
+  // Creates another line which has the same parameters as the usual line except it's black
   let shadow = Line { color: [0.0, 0.0, 0.0, 0.8], ..line };
 
-  // Defines the coordinates of the arrow as [hx, hy, tx, ty] where h is head and t is tail
-  // the arrows are offset to not overlap severely with each other
+  // Fetches the position for the arrow and it's shadow, the shadow is offset by 5px below the arrow
   let shadow_pos = get_arrow_pos(game, cell, window_size, offset+5.0_f64);
   let line_pos = get_arrow_pos(game, cell, window_size, offset);
+  // The shadow is drawn first to make it appear under the arrow
   shadow.draw_arrow(shadow_pos, 2.0*line.radius, &c.draw_state, c.transform, g);
   line.draw_arrow(line_pos, 2.0*line.radius, &c.draw_state, c.transform, g);
 }
 
 fn get_arrow_pos(game: &Game, cell: &Cell, window_size: Size, offset: f64) -> [f64; 4] {
-  return [
+  // Defines the coordinates of the arrow as [hx, hy, tx, ty] where h is head and t is tail
+  // the arrows are offset to not overlap with each other
+  [
     (cell.x as f64 + 0.5)*window_size.width/game.game_options.board_size as f64,
     50.0+window_size.height/game.game_options.board_size as f64/2.0 +
         (cell.y as f64)*(window_size.height-50.0)/game.game_options.board_size as f64 + offset,
     (game.cells[cell.end.unwrap() as usize].x as f64 + 0.5)*window_size.width/game.game_options.board_size as f64,
     50.0+window_size.height/game.game_options.board_size as f64/2.0 +
         (game.cells[cell.end.unwrap() as usize].y as f64)*(window_size.height-50.0)/game.game_options.board_size as f64 + offset,
-  ];
+  ]
 }
