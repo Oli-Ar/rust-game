@@ -6,6 +6,6 @@ school project.
 ### Compile Guide:
 1. Install Rust using [rustup](https://rustup.rs/)
 2. Go to directory with this project
-3. Run the command cargo run --release to build and run the project
+3. Run the command `cargo run --release` to build and run the project
 ### Specification 
 The game was made following the instructions from [this pdf](https://pdfhost.io/v/xBfvK9fub_project_specpdf.pdf).
