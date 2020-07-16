@@ -60,7 +60,8 @@ fn draw_line(game: &Game, cell: &Cell, window_size: Size, c: Context, g: &mut G2
   let color: [f32; 4];
   let offset: f64;
   if cell.cell_number > game.cells[cell.end.unwrap() as usize].cell_number {
-    color = [0.95, 0.27, 0.30, 1.0];
+    //color = [0.95, 0.27, 0.30, 1.0];
+    color = [1.0, 0.0, 0.0, 1.0];
     offset = -10.0*(7.0_f64/game.game_options.board_size as f64);
   } else {
     color = [0.0, 0.73, 0.89, 1.0];
@@ -73,15 +74,23 @@ fn draw_line(game: &Game, cell: &Cell, window_size: Size, c: Context, g: &mut G2
     radius: 1.0+(11.0_f64/game.game_options.board_size as f64)*((window_size.width*window_size.height)/315844.0_f64),
     shape: piston_window::line::Shape::Round
   };
+  let shadow = Line { color: [0.0, 0.0, 0.0, 0.8], ..line };
+
   // Defines the coordinates of the arrow as [hx, hy, tx, ty] where h is head and t is tail
   // the arrows are offset to not overlap severely with each other
-  let arrow = [
-    (cell.x as f64 + 0.5)*window_size.width/game.game_options.board_size as f64 + offset,
+  let shadow_pos = get_arrow_pos(game, cell, window_size, offset+5.0_f64);
+  let line_pos = get_arrow_pos(game, cell, window_size, offset);
+  shadow.draw_arrow(shadow_pos, 2.0*line.radius, &c.draw_state, c.transform, g);
+  line.draw_arrow(line_pos, 2.0*line.radius, &c.draw_state, c.transform, g);
+}
+
+fn get_arrow_pos(game: &Game, cell: &Cell, window_size: Size, offset: f64) -> [f64; 4] {
+  return [
+    (cell.x as f64 + 0.5)*window_size.width/game.game_options.board_size as f64,
     50.0+window_size.height/game.game_options.board_size as f64/2.0 +
-      (cell.y as f64)*(window_size.height-50.0)/game.game_options.board_size as f64 + offset,
-    (game.cells[cell.end.unwrap() as usize].x as f64 + 0.5)*window_size.width/game.game_options.board_size as f64 + offset,
+        (cell.y as f64)*(window_size.height-50.0)/game.game_options.board_size as f64 + offset,
+    (game.cells[cell.end.unwrap() as usize].x as f64 + 0.5)*window_size.width/game.game_options.board_size as f64,
     50.0+window_size.height/game.game_options.board_size as f64/2.0 +
         (game.cells[cell.end.unwrap() as usize].y as f64)*(window_size.height-50.0)/game.game_options.board_size as f64 + offset,
   ];
-  line.draw_arrow(arrow, 2.0*line.radius, &c.draw_state, c.transform, g);
 }
