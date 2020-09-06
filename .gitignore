@@ -1,3 +1,7 @@
 /target
 **/*.rs.bk
 /.idea/
+
+mv_linux_build.bat
+sixth_form_summer_work.exe
+pseudocode.md
