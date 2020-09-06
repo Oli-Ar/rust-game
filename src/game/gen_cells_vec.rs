@@ -19,14 +19,14 @@ pub fn make_cells_vec(game_options: &GameOptions) -> Vec<Cell> {
             x_val = i % x
         };
 
-        let new_cell: Cell = Cell {
+        // Push cell to the vector of cells
+        cells_vec.push(Cell {
             cell_number: i + 1, // The number of the cell
             x: x_val, // Value between 0 and x which will be used to plot the cell on the x axis
             y: x - 1 - i / x, // Value between 0 and x which will be used to plot the cell on the y axis
             start: false,
             end: None,
-        };
-        cells_vec.push(new_cell); // Push cell to the vector of cells
+        });
     }
     // Generates a vector of obstacle_images and assigns them to the correct cells
     let obstacles = gen_obstacles(x, game_options);
