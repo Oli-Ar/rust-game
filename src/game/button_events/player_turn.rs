@@ -103,8 +103,8 @@ fn roll_dice(dice_side: i32) -> Vec<i32> {
     // stored as roll data
     let mut return_vec: Vec<i32> = Vec::with_capacity(3);
     let rng = thread_rng();
-    let roll_one: i32 = rng.clone().gen_range(1, dice_side + 1);
-    let roll_two: i32 = rng.clone().gen_range(1, dice_side + 1);
+    let roll_one: i32 = rng.clone().gen_range(1..dice_side + 1);
+    let roll_two: i32 = rng.clone().gen_range(1..dice_side + 1);
     return_vec.extend(vec![roll_one, roll_two]);
     let roll_total: i32;
     if roll_one == roll_two {

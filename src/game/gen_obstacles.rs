@@ -21,7 +21,7 @@ pub fn gen_obstacles(x: i32, game_options: &GameOptions) -> Vec<(i32, i32)> {
         // and leaving the player in an infinite loop leading to stack overflow
         loop {
             // Starting cell
-            let cell: i32 = rng.gen_range(x, x * x);
+            let cell: i32 = rng.gen_range(x..x * x);
             // The variation of the ladder from the cell
             let v: i32 = ((normal.sample(&mut thread_rng()) as f64).round()) as i32;
             if (cell + v > 0)
